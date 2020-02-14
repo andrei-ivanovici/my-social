@@ -1,0 +1,40 @@
+.root {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  width: 30vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #c3c3c3;
+  padding: 1em;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  grid-area: title;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+
+}
+.action{
+  margin-right: 1em;
+}
+
+
+.field {
+  width: 100%;
+  margin-bottom: 1em;
+}
