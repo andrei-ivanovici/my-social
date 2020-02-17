@@ -4,14 +4,12 @@ import {browserHistory} from "../services/router.service";
 import {GuardedRoute} from "../infrastructure/GuardedRoute";
 import {App} from "../app/App";
 import {Login} from "./login/Login";
-import axios from "axios";
-import {appConfig} from "../services/config.service";
-import {CredentialsModel, UserModel} from "../models/user.models";
+import {UserModel} from "../models/user.models";
 
 
 function useUser() {
     const USER = "USER";
-    const [user, setUser] = useState();
+    const [user, setUser] = useState<UserModel>();
 
     useEffect(() => {
         const activeUser = sessionStorage.getItem(USER);
@@ -49,7 +47,7 @@ export function Root() {
             <GuardedRoute path={"/"}
                           redirect={"/login"}
                           canActivate={() => !!user}
-                          success={() => <App/>}/>
+                          success={() => <App user={user!}/>}/>
         </Switch>
 
 

@@ -5,7 +5,15 @@ import {CredentialsModel, UserModel} from "../../models/user.models";
 import {appConfig} from "../../services/config.service";
 import axios from "axios";
 
-const {root, main, actions, field, title, action} = style;
+const {
+    root,
+    main,
+    actions,
+    field,
+    title,
+    action,
+    error: errorClass
+} = style;
 
 async function signInAsync(credentials: CredentialsModel) {
     const url = appConfig().apiRoot;
@@ -15,55 +23,69 @@ async function signInAsync(credentials: CredentialsModel) {
 }
 
 export interface LoginProps {
-    onLoginSuccessful: (credentials: UserModel) => {}
+    onLoginSuccessful: (credentials: UserModel) => void
 }
 
-function useLogin() {
+
+function useLogin(onLoginSuccessful: (credentials: UserModel) => void) {
     const [credentials, setCredentials] = useState<CredentialsModel>({
         password: "",
         username: ""
     });
+    const [error, setError] = useState();
     return {
         credentials,
-        setUsername: (username: string) => {
+        error,
+        setCredentials: (newCredentials: Partial<CredentialsModel>) => {
             setCredentials({
                 ...credentials,
-                username
+                ...newCredentials
             })
         },
-        setPassword: (password: string) => {
-            setCredentials({
-                ...credentials,
-                password
-            })
+        signIn: async () => {
+            try {
+                const user = await signInAsync(credentials);
+                setError(null)
+                onLoginSuccessful(user);
+
+            } catch (err) {
+                setError("Login failed")
+            }
         }
     };
 }
 
 export function Login({onLoginSuccessful}: LoginProps) {
     const {
+        error,
         credentials,
-        setPassword, setUsername,
+        setCredentials,
         signIn
-    } = useLogin();
+    } = useLogin(onLoginSuccessful);
     const {username, password} = credentials;
 
     return <div className={root}>
         <div className={main}>
             <div className={title}> Log in</div>
             <TagEditField className={field} value={username} label={"Username"}
-                          onValueChange={e => setUsername(e.detail.value)}/>
+                          onValueChange={e => setCredentials({
+                              username: e.detail.value
+                          })}/>
 
             <TagEditField className={field} label={"Password"} editor={"password"}
-                          value={password} onValueChange={v => setPassword(v.detail.value)}/>
+                          value={password}
+                          onValueChange={v => setCredentials({
+                              password: v.detail.value
+                          })}/>
 
             <div className={actions}>
                 <TagButton className={action}
                            accent={"access"} text={"Log in"}
-                           onClick={() => onLogin(credentials)}
+                           onClick={() => signIn()}
                 />
                 <TagButton className={action} text={"Register"}/>
             </div>
+            {error && <div className={errorClass}>{error}</div>}
 
         </div>
     </div>;

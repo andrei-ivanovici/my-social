@@ -15,7 +15,6 @@ export function GuardedRoute({path, canActivate, success, redirect}: GuardedRout
                 ? success()
                 : <Redirect to={redirect}/>
         }
-        }
     </Route>
 }
 
