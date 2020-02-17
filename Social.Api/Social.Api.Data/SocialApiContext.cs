@@ -16,6 +16,10 @@ namespace Social.Api.Data
         {
             modelBuilder.Entity<UserEntity>().HasIndex(u => u.Username)
                 .IsUnique();
+            modelBuilder.Entity<PostEntity>()
+                .HasOne<UserEntity>(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

@@ -9,4 +9,9 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Social.Api.Contracts\Social.Api.Contracts.csproj" />
+      <ProjectReference Include="..\Social.Api.Infrastructure\Social.Api.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -1,0 +1,39 @@
+.root {
+  border: 1px solid #c3c3c3;
+  padding: 1em 1em 0.5em 1em;
+  width: 30vw;;
+  position: relative;
+}
+
+.header {
+  margin-bottom: 5px;
+}
+
+.text {
+  border: none;
+  padding: 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.actions {
+  padding: 5px;
+  display: flex;
+  border-top: 1px solid #c3c3c3;
+}
+
+.publish {
+  position: absolute;
+  right: 1em;
+}
+
+.preview {
+  border-top: 1px solid #c3c3c3;
+  padding: 5px 0 5px 0;
+  height: 150px;
+
+  > img {
+    max-height: 150px;
+    object-fit: contain;
+  }
+}

@@ -1,0 +1,12 @@
+.root {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

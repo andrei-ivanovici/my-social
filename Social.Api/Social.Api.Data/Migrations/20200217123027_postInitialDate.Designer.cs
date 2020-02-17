@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Social.Api.Data;
 
 namespace Social.Api.Data.Migrations
 {
     [DbContext(typeof(SocialApiContext))]
-    partial class SocialApiContextModelSnapshot : ModelSnapshot
+    [Migration("20200217123027_postInitialDate")]
+    partial class postInitialDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

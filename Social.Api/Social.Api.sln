@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Api.Data", "Social.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Api.Infrastructure", "Social.Api.Infrastructure\Social.Api.Infrastructure.csproj", "{824635A6-ECCD-42C9-8D3A-C990763411C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Social.Api.Contracts", "Social.Api.Contracts\Social.Api.Contracts.csproj", "{49A54E68-9E9C-4DA6-B2F4-20E73A1E89EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{824635A6-ECCD-42C9-8D3A-C990763411C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{824635A6-ECCD-42C9-8D3A-C990763411C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{824635A6-ECCD-42C9-8D3A-C990763411C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49A54E68-9E9C-4DA6-B2F4-20E73A1E89EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49A54E68-9E9C-4DA6-B2F4-20E73A1E89EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49A54E68-9E9C-4DA6-B2F4-20E73A1E89EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49A54E68-9E9C-4DA6-B2F4-20E73A1E89EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

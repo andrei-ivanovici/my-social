@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Social.Api.Contracts\Social.Api.Contracts.csproj" />
       <ProjectReference Include="..\Social.Api.Data\Social.Api.Data.csproj" />
       <ProjectReference Include="..\Social.Api.Infrastructure\Social.Api.Infrastructure.csproj" />
     </ItemGroup>

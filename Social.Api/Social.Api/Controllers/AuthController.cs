@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -48,8 +46,7 @@ namespace Social.Api.Controllers
         public async Task<ActionResult<User>> Login(Credentials credentials)
         {
             var user = await _socialRepository.GetUserByUsernameAsync(credentials.Username);
-            var hashedPwd = CredentialsCypher.ToSha256(credentials.Password);
-            if (hashedPwd != user.Password)
+            if (!user.isAuthorized(credentials.Password))
             {
                 return Unauthorized("Invalid username or password");
             }
