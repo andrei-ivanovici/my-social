@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Table1]
+(
+	[Id] INT NOT NULL PRIMARY KEY, 
+    [Entry] VARCHAR(500) NULL, 
+    [Date] DATETIME2 NULL
+)

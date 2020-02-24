@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Social.Api.Data;
@@ -31,7 +33,9 @@ namespace Social.Api
             services.AddControllers();
             services.AddDbContext<SocialApiContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("main")));
-            services.AddScoped<SocialRepository>();
+            services.Configure<ImageRepoConfiguration>(Configuration.GetSection("ImageRepo"));
+            services.AddScoped<UserRepository>();
+            services.AddScoped<PostRepository>();
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -48,6 +52,13 @@ namespace Social.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod()
             );
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Configuration.GetSection("ImageRepo")["Root"]),
+                RequestPath = new PathString("/static")
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

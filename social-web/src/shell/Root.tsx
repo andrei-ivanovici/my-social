@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Router, Switch} from "react-router";
+import {Route, Router, Switch} from "react-router";
 import {browserHistory} from "../services/router.service";
 import {GuardedRoute} from "../infrastructure/GuardedRoute";
 import {App} from "../app/App";
 import {Login} from "./login/Login";
 import {UserModel} from "../models/user.models";
+import {Register} from "./register/Register";
 
 
 function useUser() {
@@ -44,6 +45,9 @@ export function Root() {
                               onLoginSuccessful={setUser}
                           />}/>
 
+            <Route path={"/register"}>
+                <Register/>
+            </Route>
             <GuardedRoute path={"/"}
                           redirect={"/login"}
                           canActivate={() => !!user}

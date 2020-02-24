@@ -11,10 +11,12 @@ namespace Social.Api.Data
     public class PostRepository
     {
         private readonly SocialApiContext _context;
+        private readonly UserRepository _userRepository;
 
-        public PostRepository(SocialApiContext context)
+        public PostRepository(SocialApiContext context, UserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         public Task<List<Post>> GetPostsAsync()
@@ -37,25 +39,18 @@ namespace Social.Api.Data
 
         public async Task<PostEntity> AddPostAsync(PostEntity post, string ownerUsername)
         {
-            var owner = await _context.Users
-                .AsNoTracking()
-                .Select(x => new UserEntity
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Username = x.Username,
-                    }
-                ).SingleOrDefaultAsync(user => user.Username == ownerUsername);
-            if (owner == null)
-            {
-                throw new Exception("Not Found");
-            }
+            var useId = await _userRepository.GetUseIdByNameAsync(ownerUsername);
 
             _context.Add(post);
 
-            post.User = owner;
+            post.UserId = useId;
             await _context.SaveChangesAsync();
             return post;
+        }
+
+        public List<PostEntity> GetPosts()
+        {
+            return _context.Posts.ToList();
         }
     }
 }

@@ -4,6 +4,7 @@ import {TagButton, TagEditField} from "@tag/tag-components-react-v2";
 import {CredentialsModel, UserModel} from "../../models/user.models";
 import {appConfig} from "../../services/config.service";
 import axios from "axios";
+import {navService} from "../../services/router.service";
 
 const {
     root,
@@ -55,6 +56,10 @@ function useLogin(onLoginSuccessful: (credentials: UserModel) => void) {
     };
 }
 
+function register() {
+    navService.register()
+}
+
 export function Login({onLoginSuccessful}: LoginProps) {
     const {
         error,
@@ -83,7 +88,7 @@ export function Login({onLoginSuccessful}: LoginProps) {
                            accent={"access"} text={"Log in"}
                            onClick={() => signIn()}
                 />
-                <TagButton className={action} text={"Register"}/>
+                <TagButton className={action} text={"Register"} onClick={register}/>
             </div>
             {error && <div className={errorClass}>{error}</div>}
 

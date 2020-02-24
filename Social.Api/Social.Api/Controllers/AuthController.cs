@@ -13,15 +13,14 @@ namespace Social.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly SocialRepository _socialRepository;
-
         private readonly LinkGenerator _linker;
+        private readonly UserRepository _userRepository;
         private readonly IMapper _mapper;
 
 
-        public AuthController(SocialRepository socialRepository, IMapper mapper, LinkGenerator linker)
+        public AuthController(UserRepository userRepository, IMapper mapper, LinkGenerator linker)
         {
-            _socialRepository = socialRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _linker = linker;
         }
@@ -36,7 +35,7 @@ namespace Social.Api.Controllers
 
             var user = _mapper.Map<UserEntity>(newUser);
             user.Password = CredentialsCypher.ToSha256(user.Password);
-            var result = await _socialRepository.RegisterAsync(user);
+            var result = await _userRepository.RegisterAsync(user);
             var link = _linker.GetPathByAction(HttpContext, nameof(Login));
             return Created(link, _mapper.Map<User>(result));
         }
@@ -45,8 +44,8 @@ namespace Social.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(Credentials credentials)
         {
-            var user = await _socialRepository.GetUserByUsernameAsync(credentials.Username);
-            if (!user.isAuthorized(credentials.Password))
+            var user = await _userRepository.GetUserByUsernameAsync(credentials.Username);
+            if (!user.IsAuthorized(credentials.Password))
             {
                 return Unauthorized("Invalid username or password");
             }
