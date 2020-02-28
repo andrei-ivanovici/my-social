@@ -8,6 +8,7 @@ import style from "./Register.module.scss";
 const {root, actions} = style;
 
 interface RegisterModel {
+    name: string;
     username: string;
     password: string;
     confirmPassword: string;
@@ -16,6 +17,7 @@ interface RegisterModel {
 function useRegisterUser() {
 
     const [state, setState] = useState<RegisterModel>({
+        name: "",
         username: "",
         password: "",
         confirmPassword: ""
@@ -30,7 +32,7 @@ function useRegisterUser() {
             })
         },
         register: () => {
-            const url = `${appConfig().apiRoot}/auth`;
+            const url = `${appConfig().apiRoot}/auth/register`;
             axios.post(url, state)
                 .then(() => {
                     navService.login();
@@ -41,9 +43,13 @@ function useRegisterUser() {
 
 export function Register() {
     const {state, setCredentials, register} = useRegisterUser();
-    const {username, confirmPassword, password} = state;
+    const {username, confirmPassword, password, name} = state;
     return <div className={root}>
         <h1> Register a new User</h1>
+        <TagEditField value={name} label={"Name"}
+                      onValueChange={e => setCredentials({
+                          name: e.detail.value
+                      })}/>
         <TagEditField value={username} label={"Username"}
                       onValueChange={e => setCredentials({
                           username: e.detail.value

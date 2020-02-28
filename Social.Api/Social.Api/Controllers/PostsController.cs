@@ -22,6 +22,7 @@ namespace Social.Api.Controllers
         {
             _repo = repo;
             _mapper = mapper;
+            
         }
 
         [HttpGet]
@@ -30,6 +31,7 @@ namespace Social.Api.Controllers
             try
             {
                 var posts = await _repo.GetPostsAsync();
+
                 return Ok(posts);
             }
             catch (Exception ex)

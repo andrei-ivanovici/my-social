@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Social.Api.Data;
+using Social.Api.Infrastructure;
 
 namespace Social.Api
 {
@@ -30,12 +23,9 @@ namespace Social.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<TenantAccessor>();
             services.AddControllers();
-            services.AddDbContext<SocialApiContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("main")));
-            services.Configure<ImageRepoConfiguration>(Configuration.GetSection("ImageRepo"));
-            services.AddScoped<UserRepository>();
-            services.AddScoped<PostRepository>();
+            services.UseSocialServices(Configuration);
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -52,7 +42,7 @@ namespace Social.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod()
             );
-
+            app.UseTenantMiddleware();
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Configuration.GetSection("ImageRepo")["Root"]),

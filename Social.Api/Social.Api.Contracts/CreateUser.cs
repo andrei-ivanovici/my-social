@@ -7,13 +7,13 @@ namespace Social.Api.Contracts
         [Required]
         public string Name { get; set; }
 
-        [Required, StringLength(3)]
+        [Required, StringLength(20, MinimumLength = 3)]
         public string Username { get; set; }
 
-        [Required, StringLength(3)]
+        [Required, StringLength(20, MinimumLength = 3)]
         public string Password { get; set; }
 
-        [Required, StringLength(3)]
+        [Required, StringLength(20, MinimumLength = 3)]
         public string ConfirmPassword { get; set; }
     }
 }

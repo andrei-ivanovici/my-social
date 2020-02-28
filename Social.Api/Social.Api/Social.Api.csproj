@@ -17,5 +17,9 @@
       <ProjectReference Include="..\Social.Api.Infrastructure\Social.Api.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Middleware" />
+    </ItemGroup>
+
 
 </Project>

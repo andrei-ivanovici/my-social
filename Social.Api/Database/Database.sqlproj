@@ -56,10 +56,13 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Security" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\SecuritySchema.sql" />
     <Build Include="Security\Audit.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Security\RLS.sql" />
+    <Content Include="Security\SecurityPolicy.sql" />
   </ItemGroup>
 </Project>

@@ -3,19 +3,21 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Social.Api.Contracts;
 
 namespace Social.Api.Controllers
 {
     [ApiController]
+    [Route("asset")]
     public class AssetController : ControllerBase
     {
         private readonly ImageRepoConfiguration _repo;
         private readonly ILogger<AssetController> _logger;
 
-        public AssetController(ImageRepoConfiguration repo, ILogger<AssetController> logger)
+        public AssetController(IOptionsMonitor<ImageRepoConfiguration> repo, ILogger<AssetController> logger)
         {
-            _repo = repo;
+            _repo = repo.CurrentValue;
             _logger = logger;
         }
 

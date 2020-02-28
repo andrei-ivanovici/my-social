@@ -1,3 +1,3 @@
-﻿CREATE SCHEMA [security]
+﻿CREATE SCHEMA [sec]
 GO;
 

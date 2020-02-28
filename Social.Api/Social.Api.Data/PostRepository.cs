@@ -12,11 +12,13 @@ namespace Social.Api.Data
     {
         private readonly SocialApiContext _context;
         private readonly UserRepository _userRepository;
+        private readonly AuditRepository _auditRepository;
 
-        public PostRepository(SocialApiContext context, UserRepository userRepository)
+        public PostRepository(SocialApiContext context, UserRepository userRepository, AuditRepository auditRepository)
         {
             _context = context;
             _userRepository = userRepository;
+            _auditRepository = auditRepository;
         }
 
         public Task<List<Post>> GetPostsAsync()
@@ -45,6 +47,12 @@ namespace Social.Api.Data
 
             post.UserId = useId;
             await _context.SaveChangesAsync();
+            await _auditRepository.AddEvent(new AuditEntity()
+            {
+                Date = DateTime.Now,
+                Event = "New post added",
+                User = ownerUsername
+            });
             return post;
         }
 
